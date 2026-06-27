@@ -1,18 +1,57 @@
+# BUILD ARTIFACTS
+build/
+*.apk
+*.ipa
+*.app
+*.aab
+
+# DEPENDENCIES
+node_modules/
+.dart_tool/
+.pub-cache/
+
+# IDE FILES
 *.iml
+.idea/caches
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# GRADLE
 .gradle
-.kotlin
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+
+# OS FILES
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
+Thumbs.db
+
+# SECRETS
 .env
+.env.local
 debug.keystore
+*.keystore
+*.jks
+*.pem
+*.p12
+google-services.json
+GoogleService-Info.plist
+
+# GENERATED FILES
+*.generated.dart
+*.g.dart
+*.freezed.dart
+*.gr.dart
+
+# COVERAGE AND LOGS
+coverage/
+*.lcov
+*.log
+logs/
+
+# TEMPORARY
+*.tmp
+*.swp
+*.bak
+*~
