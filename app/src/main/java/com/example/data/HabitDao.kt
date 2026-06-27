@@ -26,4 +26,10 @@ interface HabitDao {
 
     @Query("DELETE FROM completion_logs WHERE habitId = :habitId AND dateString = :dateString")
     suspend fun deleteCompletionLog(habitId: Int, dateString: String)
+
+    @Query("SELECT * FROM completion_logs WHERE dateString = :dateString")
+    fun getLogsForDate(dateString: String): Flow<List<CompletionLog>>
+
+    @Query("SELECT * FROM completion_logs WHERE dateString BETWEEN :startDate AND :endDate")
+    fun getLogsForDateRange(startDate: String, endDate: String): Flow<List<CompletionLog>>
 }

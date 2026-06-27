@@ -34,9 +34,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ui.HabitViewModel
-import com.example.ui.IntakeState
 import com.example.ui.CoachRecommendation
+import com.example.ui.IntakeState
 import com.example.ui.ActionType
+import com.example.ui.calendar.CalendarScreen
 import com.example.ui.components.*
 import com.example.data.Habit
 import com.example.data.CompletionLog
@@ -90,6 +91,11 @@ fun CoachAppContainer(viewModel: HabitViewModel = viewModel()) {
     // Resilient Warning Alert configuration
     val isApiKeyPresent = BuildConfig.GEMINI_API_KEY.isNotEmpty() && BuildConfig.GEMINI_API_KEY != "MY_GEMINI_API_KEY"
 
+    // Schedule reminders when habits change
+    LaunchedEffect(habits) {
+        com.example.notifications.AlarmScheduler.scheduleAllReminders(context, habits)
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -118,6 +124,19 @@ fun CoachAppContainer(viewModel: HabitViewModel = viewModel()) {
                     onClick = { selectedTab = 1 },
                     icon = { Icon(Icons.Default.Add, contentDescription = "AI Routine Intake") },
                     label = { Text("AI Intake") },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = ActiveBlue,
+                        selectedTextColor = PrimaryTeal,
+                        indicatorColor = SoftCyan,
+                        unselectedIconColor = TextMuted,
+                        unselectedTextColor = TextMuted
+                    )
+                )
+                NavigationBarItem(
+                    selected = selectedTab == 2,
+                    onClick = { selectedTab = 2 },
+                    icon = { Icon(Icons.Default.DateRange, contentDescription = "Calendar") },
+                    label = { Text("Calendar") },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = ActiveBlue,
                         selectedTextColor = PrimaryTeal,
@@ -250,6 +269,13 @@ fun CoachAppContainer(viewModel: HabitViewModel = viewModel()) {
                         onApplyRecommendation = { rec ->
                             viewModel.applyRecommendation(rec)
                             Toast.makeText(context, "Routine updated instantly!", Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                } else if (selectedTab == 2) {
+                    CalendarScreen(
+                        habits = habits,
+                        onDateSelected = { day ->
+                            // TODO: Show day detail view
                         }
                     )
                 } else {
