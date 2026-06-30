@@ -6,6 +6,7 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.example.R
 import com.example.data.HabitDatabase
+import com.example.data.isActiveOn
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
@@ -37,10 +38,7 @@ class HabitWidgetItemFactory(
             val logs = dao.getAllCompletionLogs().first()
 
             allHabits.filter { habit ->
-                !habit.isArchived && habit.activeDays.split(",").any {
-                    it.trim().lowercase(Locale.ROOT) == today.lowercase(Locale.ROOT) ||
-                    it.trim().lowercase(Locale.ROOT) == today.lowercase(Locale.ROOT).substring(0, 3)
-                }
+                !habit.isArchived && habit.isActiveOn(today)
             }.map { habit ->
                 HabitItem(
                     id = habit.id,

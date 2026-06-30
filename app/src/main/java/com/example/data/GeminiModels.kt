@@ -1,6 +1,7 @@
 package com.example.data
 
 import com.example.BuildConfig
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -16,7 +17,9 @@ import java.util.concurrent.TimeUnit
 @JsonClass(generateAdapter = true)
 data class GenerateContentRequest(
     val contents: List<Content>,
+    @param:Json(name = "generationConfig")
     val generationConfig: GenerationConfig? = null,
+    @param:Json(name = "systemInstruction")
     val systemInstruction: Content? = null
 )
 
@@ -32,7 +35,9 @@ data class Part(
 
 @JsonClass(generateAdapter = true)
 data class GenerationConfig(
+    @param:Json(name = "responseMimeType")
     val responseMimeType: String? = null,
+    @param:Json(name = "responseSchema")
     val responseSchema: ResponseSchema? = null,
     val temperature: Float? = null
 )

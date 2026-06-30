@@ -37,7 +37,7 @@ class HabitReminderReceiver : BroadcastReceiver() {
         )
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("Behavior Coach")
             .setContentText("Time for: $habitTitle")
             .setPriority(NotificationCompat.PRIORITY_HIGH)

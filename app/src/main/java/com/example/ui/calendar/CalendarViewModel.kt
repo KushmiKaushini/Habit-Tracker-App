@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.Habit
 import com.example.data.HabitDatabase
 import com.example.data.HabitRepository
+import com.example.data.isActiveOn
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -69,7 +70,7 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             cal.set(Calendar.DAY_OF_MONTH, day)
             val dateStr = sdf.format(cal.time)
             val dayOfWeek = SimpleDateFormat("EEEE", Locale.US).format(cal.time)
-            val scheduledCount = activeHabits.count { isScheduledForDay(it, dayOfWeek) }
+            val scheduledCount = activeHabits.count { it.isActiveOn(dayOfWeek) }
             val completedCount = logMap[dateStr]?.size ?: 0
 
             DayCompletion(
@@ -81,11 +82,6 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
                 isToday = dateStr == today
             )
         }
-    }
-
-    private fun isScheduledForDay(habit: Habit, dayOfWeek: String): Boolean {
-        val activeDays = habit.activeDays.split(",").map { it.trim().lowercase(Locale.ROOT) }
-        return activeDays.any { it == dayOfWeek.lowercase(Locale.ROOT) || it == dayOfWeek.lowercase(Locale.ROOT).substring(0, 3) }
     }
 
     fun nextMonth() {
