@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.*
+import com.example.data.isActiveOn
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -202,7 +203,6 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
         
         habitList.forEach { habit ->
             // Let's evaluate past 7 days to see scheduled days vs completed days
-            val scheduledDays = habit.activeDays.split(",").map { it.trim().lowercase(Locale.ROOT) }
             var consecutiveMisses = 0
             val missedWeekdays = mutableSetOf<String>()
 
@@ -210,7 +210,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
             // Skip the first element in pastSevenDays (which is index 0 = today)
             for (i in 1 until pastSevenDays.size) {
                 val (dateStr, dayOfWeek) = pastSevenDays[i]
-                val isScheduled = scheduledDays.contains(dayOfWeek.lowercase(Locale.ROOT))
+                val isScheduled = habit.isActiveOn(dayOfWeek)
                 if (isScheduled) {
                     val isCompleted = logList.any { it.habitId == habit.id && it.dateString == dateStr }
                     if (!isCompleted) {

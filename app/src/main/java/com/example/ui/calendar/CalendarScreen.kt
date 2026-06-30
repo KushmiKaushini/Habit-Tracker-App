@@ -10,8 +10,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -59,7 +59,7 @@ fun CalendarScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = { viewModel.previousMonth() }) {
-                Icon(Icons.Default.ArrowBack, contentDescription = "Previous", tint = PrimaryTeal)
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Previous", tint = PrimaryTeal)
             }
             Text(
                 text = monthName,
@@ -68,7 +68,7 @@ fun CalendarScreen(
                 fontWeight = FontWeight.Bold
             )
             IconButton(onClick = { viewModel.nextMonth() }) {
-                Icon(Icons.Default.ArrowForward, contentDescription = "Next", tint = PrimaryTeal)
+                Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Next", tint = PrimaryTeal)
             }
         }
 
