@@ -54,7 +54,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
     val intakeState: StateFlow<IntakeState> = _intakeState.asStateFlow()
 
     private val _userProfile = MutableStateFlow(
-        UserProfile("Kush Mi", "kushmi1428@gmail.com", "https://api.dicebear.com/7.x/bottts/svg?seed=kushmi", isAuthenticated = true)
+        UserProfile("", "", "", isAuthenticated = false)
     )
     val userProfile: StateFlow<UserProfile> = _userProfile.asStateFlow()
 
